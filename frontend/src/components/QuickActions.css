@@ -1,0 +1,105 @@
+/* --- Quick Actions --- */
+.quick-actions {
+  padding: var(--space-sm) var(--space-lg);
+  background: var(--bg-glass);
+  backdrop-filter: blur(12px);
+  border-top: 1px solid var(--gray-100);
+}
+
+.quick-actions-label {
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: var(--space-sm);
+}
+
+.quick-actions-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.quick-action-btn {
+  padding: var(--space-xs) var(--space-md);
+  border-radius: var(--radius-full);
+  border: 1.5px solid;
+  font-family: var(--font-family);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  white-space: nowrap;
+  background: var(--bg-secondary);
+}
+
+.quick-action-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.quick-action-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.quick-action-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* --- Varianti colore --- */
+.quick-action-primary {
+  border-color: var(--pharmacy-300);
+  color: var(--pharmacy-700);
+}
+
+.quick-action-primary:hover:not(:disabled) {
+  background: var(--pharmacy-50);
+  border-color: var(--pharmacy-400);
+}
+
+.quick-action-info {
+  border-color: #93c5fd;
+  color: #1d4ed8;
+}
+
+.quick-action-info:hover:not(:disabled) {
+  background: #eff6ff;
+  border-color: #60a5fa;
+}
+
+.quick-action-success {
+  border-color: #86efac;
+  color: #15803d;
+}
+
+.quick-action-success:hover:not(:disabled) {
+  background: #f0fdf4;
+  border-color: #4ade80;
+}
+
+.quick-action-secondary {
+  border-color: var(--gray-300);
+  color: var(--gray-600);
+}
+
+.quick-action-secondary:hover:not(:disabled) {
+  background: var(--gray-50);
+  border-color: var(--gray-400);
+}
+
+@media (max-width: 480px) {
+  .quick-actions {
+    padding: var(--space-sm) var(--space-md);
+  }
+
+  .quick-actions-grid {
+    gap: 6px;
+  }
+
+  .quick-action-btn {
+    font-size: 0.7rem;
+    padding: 4px 10px;
+  }
+}

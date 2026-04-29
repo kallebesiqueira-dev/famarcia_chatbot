@@ -1,0 +1,9 @@
+{
+  "name": "farmacia-chatbot",
+  "private": true,
+  "scripts": {
+    "dev": "cd frontend && npm run dev",
+    "dev:backend": "cd backend && .\\venv\\Scripts\\python.exe manage.py runserver 8000",
+    "build": "cd frontend && npm run build"
+  }
+}

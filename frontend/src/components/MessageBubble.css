@@ -1,0 +1,117 @@
+/* --- Message Bubble Styles --- */
+.message-bubble {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-sm);
+  padding: 0 var(--space-lg);
+  margin-bottom: var(--space-md);
+}
+
+.message-user {
+  justify-content: flex-end;
+}
+
+.message-bot {
+  justify-content: flex-start;
+}
+
+/* --- Avatar bot --- */
+.message-avatar {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  margin-bottom: 2px;
+}
+
+.message-avatar svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+}
+
+/* --- Bubble --- */
+.bubble-content {
+  max-width: 75%;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-lg);
+  position: relative;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--transition-fast);
+}
+
+.bubble-content:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.bubble-bot {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border-bottom-left-radius: var(--space-xs);
+  border: 1px solid var(--gray-100);
+}
+
+.bubble-user {
+  background: linear-gradient(135deg, var(--pharmacy-600), var(--pharmacy-500));
+  color: var(--text-on-primary);
+  border-bottom-right-radius: var(--space-xs);
+}
+
+/* --- Sender name --- */
+.bubble-sender {
+  display: block;
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  color: var(--pharmacy-600);
+  margin-bottom: 2px;
+}
+
+/* --- Text --- */
+.bubble-text {
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+  word-break: break-word;
+}
+
+.bubble-bot .bubble-text strong {
+  color: var(--pharmacy-800);
+  font-weight: 600;
+}
+
+.bubble-bot .bubble-text em {
+  color: var(--gray-500);
+  font-style: italic;
+  font-size: var(--font-size-xs);
+}
+
+/* --- Timestamp --- */
+.bubble-time {
+  display: block;
+  font-size: 0.65rem;
+  text-align: right;
+  margin-top: 4px;
+  opacity: 0.6;
+}
+
+.bubble-user .bubble-time {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.bubble-bot .bubble-time {
+  color: var(--gray-400);
+}
+
+/* --- Responsive --- */
+@media (max-width: 480px) {
+  .message-bubble {
+    padding: 0 var(--space-md);
+  }
+
+  .bubble-content {
+    max-width: 85%;
+  }
+
+  .message-avatar {
+    width: 26px;
+    height: 26px;
+  }
+}
