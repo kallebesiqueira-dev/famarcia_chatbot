@@ -1,71 +1,131 @@
-<![CDATA[# 💊 Farmacia AI Assistant
+# Farmacia AI Assistant
 
-> Assistente farmaceutico virtuale bilingue (IT/EN) con intelligenza artificiale.
+Virtual pharmacy assistant with a modern web interface, Django backend, and React frontend. The project is designed to answer common symptom questions, guide users through product-related inquiries, and make it easier to continue the conversation on WhatsApp.
 
-![Farmacia AI Assistant — Welcome](docs/screenshot.png)
+The chatbot primarily supports Italian and English, with offline fallback behavior when the backend or AI provider is unavailable.
 
-![Farmacia AI Assistant — Active Conversation](docs/screenshot_chat.png)
+## Overview
 
----
+- Pharmacy chat with automated responses for common symptoms and routine questions.
+- Basic language detection between Italian and English.
+- Optional OpenAI integration.
+- Offline mode with local responses when the API is unavailable.
+- WhatsApp link generation for follow-up support.
+- REST API for chat, history, and product catalog features.
 
-## ✨ Funzionalità
+## Screenshots
 
-- 🤖 **AI-powered** — Integrazione OpenAI (GPT-4/4o) per risposte intelligenti
-- 🇮🇹🇬🇧 **Bilingue** — Italiano e Inglese con rilevamento automatico della lingua
-- 💊 **Knowledge Base farmaceutica** — Consigli su farmaci da banco, sintomi comuni
-- 📱 **WhatsApp** — Invia conversazioni direttamente su WhatsApp
-- 🕐 **Info farmacia** — Orari, contatti, servizi disponibili
-- 🎨 **UI moderna** — Interfaccia premium con animazioni e design glassmorphism
-- 📊 **Analytics** — Logging completo delle conversazioni per statistiche
-- 🔄 **Fallback offline** — Funziona anche senza backend con risposte rule-based
+<p align="center">
+  <img src="docs/screenshot.png" alt="Farmacia AI Assistant home screen" width="900" />
+</p>
 
----
+<p align="center">
+  <img src="docs/screenshot_chat.png" alt="Active conversation in Farmacia AI Assistant" width="900" />
+</p>
 
-## 🛠️ Tech Stack
+## Features
 
-| Layer | Tecnologia |
-|-------|-----------|
-| **Frontend** | React 19 + Vite 8 |
-| **Backend** | Django 4.2 + Django REST Framework |
-| **AI** | OpenAI API (GPT-4 / GPT-4o / GPT-4o-mini) |
-| **Database** | SQLite (dev) / PostgreSQL (prod) |
-| **Styling** | Vanilla CSS con glassmorphism + gradients |
+### Smart chat
 
----
+- Answers questions about headaches, fever, cough, colds, allergies, and gastric discomfort.
+- Includes safety disclaimers to reinforce that the content does not replace medical or pharmaceutical advice.
+- Stores conversation history in the backend.
 
-## 🚀 Quick Start
+### User experience
 
-### Prerequisiti
+- Responsive interface with quick actions.
+- Typing indicator to simulate real-time assistance.
+- Language switcher in the interface.
+- Error banner with automatic offline fallback.
 
-- Python 3.10+
-- Node.js 18+
-- (Opzionale) API Key OpenAI
+### Catalog and support
 
-### 1. Clone
+- API to list, search, and inspect pharmacy products.
+- Support for filters by availability, category, and product name.
+- WhatsApp link generation with a prefilled message.
 
-```bash
-git clone https://github.com/your-username/farmacia-chatbot.git
-cd farmacia-chatbot
+## Stack
+
+| Layer | Technology |
+| --- | --- |
+| Frontend | React 19 + Vite 8 |
+| Backend | Django 4.2 + Django REST Framework |
+| Database | SQLite in local development |
+| Integrations | OpenAI API and WhatsApp link sharing |
+| Styling | Plain CSS |
+
+## Project Architecture
+
+```text
+famarcia_chatbot/
+|-- backend/
+|   |-- chatbot/          # chat, AI engine, history, and WhatsApp integration
+|   |-- pharmacy/         # catalog and product endpoints
+|   |-- config/           # Django settings and main routes
+|   |-- db.sqlite3        # local development database
+|   |-- manage.py
+|   `-- requirements.txt
+|-- frontend/
+|   |-- public/
+|   |-- src/
+|   |   |-- components/   # application UI
+|   |   |-- services/     # HTTP client for the API
+|   |   `-- App.jsx       # main conversation state
+|   `-- package.json
+|-- docs/
+|   |-- screenshot.png
+|   `-- screenshot_chat.png
+|-- LICENSE
+|-- README.md
+`-- SECURITY.md
 ```
 
-### 2. Backend
+## Getting Started
+
+### Prerequisites
+
+- Python 3.10 or later
+- Node.js 18 or later
+- npm
+- Optional OpenAI API key
+
+### 1. Clone the project
+
+```bash
+git clone https://github.com/kallebesiqueira-dev/famarcia_chatbot.git
+cd famarcia_chatbot
+```
+
+### 2. Set up the backend
 
 ```bash
 cd backend
 python -m venv venv
+```
 
-# Windows
+On Windows:
+
+```bash
 .\venv\Scripts\activate
+```
 
-# macOS/Linux
+On macOS/Linux:
+
+```bash
 source venv/bin/activate
+```
 
+Install the dependencies and start the server:
+
+```bash
 pip install -r requirements.txt
 python manage.py migrate
 python manage.py runserver 8000
 ```
 
-### 3. Frontend
+### 3. Set up the frontend
+
+In another terminal:
 
 ```bash
 cd frontend
@@ -73,82 +133,128 @@ npm install
 npm run dev
 ```
 
-### 4. Apri nel browser
+### 4. Open in the browser
 
+```text
+http://localhost:5173
 ```
-http://localhost:5173/
+
+Vite is already configured to proxy `/api` requests to `http://127.0.0.1:8000` during development.
+
+## Useful Scripts
+
+From the project root:
+
+```bash
+npm run dev
 ```
 
----
+Starts the frontend using the root script.
 
-## ⚙️ Configurazione AI
+```bash
+npm run dev:backend
+```
 
-Edita il file `backend/.env`:
+Starts the backend using the Python interpreter from `backend/venv`.
+
+```bash
+npm run build
+```
+
+Builds the frontend for production.
+
+## Environment Configuration
+
+Create a `backend/.env` file if you want to override the default settings.
+
+Example:
 
 ```env
-# Modalità mock (senza API key, risposte rule-based)
-AI_PROVIDER=mock
+DJANGO_DEBUG=True
+DJANGO_SECRET_KEY=replace-this-key-in-production
+DJANGO_ALLOWED_HOSTS=localhost,127.0.0.1
+CORS_ALLOWED_ORIGINS=http://localhost:5173,http://127.0.0.1:5173
 
-# Modalità OpenAI (risposte AI reali)
-AI_PROVIDER=openai
-OPENAI_API_KEY=sk-proj-la-tua-chiave-qui
-AI_MODEL=gpt-4o-mini    # o gpt-4, gpt-4o, gpt-3.5-turbo
+WHATSAPP_NUMBER=393331234567
+
+AI_PROVIDER=mock
+OPENAI_API_KEY=
+AI_MODEL=gpt-4o-mini
 AI_MAX_TOKENS=500
 ```
 
-| Modello | Costo | Velocità | Consigliato |
-|---------|-------|----------|-------------|
-| `gpt-4` | Alto | Lento | ❌ |
-| `gpt-4o` | Medio | Veloce | ✅ Produzione |
-| `gpt-4o-mini` | Basso | Molto veloce | ✅ Sviluppo |
-| `gpt-3.5-turbo` | Molto basso | Veloce | ⚠️ Legacy |
+### AI modes
 
----
+- `AI_PROVIDER=mock`: uses local backend responses without relying on an external provider.
+- `AI_PROVIDER=openai`: uses the OpenAI API when `OPENAI_API_KEY` is defined.
 
-## 📁 Struttura Progetto
+If the backend fails or becomes unavailable, the frontend still replies with a local fallback to keep the experience functional.
 
-```
-farmacia-chatbot/
-├── backend/
-│   ├── chatbot/          # App chat (views, AI engine, models)
-│   │   ├── ai_engine.py  # Motore AI bilingue con knowledge base
-│   │   ├── views.py      # API endpoints REST
-│   │   ├── models.py     # ChatLog model
-│   │   └── ...
-│   ├── pharmacy/         # App farmacia (prodotti, info)
-│   ├── config/           # Settings Django
-│   ├── .env              # Variabili d'ambiente
-│   └── requirements.txt
-├── frontend/
-│   ├── src/
-│   │   ├── components/   # React components (Header, ChatBox, etc.)
-│   │   ├── services/     # API client
-│   │   └── App.jsx       # Root component
-│   └── package.json
-├── docs/
-│   └── screenshot.png
-├── SECURITY.md
-└── README.md
+## Database and Sample Data
+
+The project uses SQLite by default in local development.
+
+To populate the catalog with sample products:
+
+```bash
+cd backend
+.\venv\Scripts\activate
+python seed_data.py
 ```
 
----
+This creates or updates products such as pain relievers, vitamins, cosmetics, and medical devices.
 
-## 🔒 Sicurezza
+## API Endpoints
 
-Consulta [SECURITY.md](SECURITY.md) per:
-- Gestione API keys e variabili d'ambiente
-- Checklist produzione
-- Policy segnalazione vulnerabilità
+### Chat
 
----
+| Method | Route | Description |
+| --- | --- | --- |
+| `POST` | `/api/chat/` | Sends a message and returns the assistant response |
+| `GET` | `/api/chat/history/` | Returns the conversation history |
 
-## 📄 Licenza
+Example payload:
 
-Questo progetto è distribuito sotto licenza [MIT](LICENSE).
+```json
+{
+  "message": "Ho mal di testa",
+  "session_id": "session_123"
+}
+```
 
----
+### Products
 
-<p align="center">
-  Made with ❤️ for Italian pharmacies
-</p>
+| Method | Route | Description |
+| --- | --- | --- |
+| `GET` | `/api/products/` | Lists products |
+| `GET` | `/api/products/search/?q=term` | Searches products |
+| `GET` | `/api/products/{id}/` | Returns product details |
+
+Supported filters for `/api/products/`:
+
+- `available=true`
+- `category=farmaco`
+- `search=paracetamolo`
+
+### WhatsApp
+
+| Method | Route | Description |
+| --- | --- | --- |
+| `POST` | `/api/whatsapp/` | Generates a WhatsApp link with a ready-to-send message |
+
+## Application Flow
+
+1. The user types a message in the frontend.
+2. React sends the request to `/api/chat/`.
+3. Django processes the text, detects the language, and generates a response.
+4. The response is stored in history and returned to the frontend.
+5. The user can continue the conversation or forward the latest reply to WhatsApp.
+
+## Security
+
+Read [SECURITY.md](SECURITY.md) before publishing the project or configuring sensitive variables in production.
+
+## License
+
+This project is licensed under the [MIT](LICENSE) license.
 ]]>
